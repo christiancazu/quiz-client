@@ -22,7 +22,13 @@ onFetchResponse(async (res) => {
 </script>
 
 <template>
+  <v-toolbar>
+    <div class="d-flex justify-center w-100">
+      <img src="@/assets/continental.png" alt="logo">
+    </div>
+  </v-toolbar>
   <main class="main">
+
     <v-container fluid class="app-container">
       <RouterView v-if="isLoaded" />
       <div v-else class="d-flex justify-center flex-column align-center">
@@ -66,22 +72,23 @@ onFetchResponse(async (res) => {
 }
 
 .loader {
-    width: 48px;
-    height: 48px;
-    border: 5px solid #FFF;
-    border-bottom-color: transparent;
-    border-radius: 50%;
-    display: inline-block;
-    box-sizing: border-box;
-    animation: rotation 1s linear infinite;
-    }
+  width: 48px;
+  height: 48px;
+  border: 5px solid #FFF;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
 
-    @keyframes rotation {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-    } 
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
 </style>

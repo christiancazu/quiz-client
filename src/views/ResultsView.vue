@@ -10,10 +10,13 @@
         {{ index + 1 }}
       </template>
     </v-data-table>
+
+    <MyAnswers />
   </div>
 </template>
 
 <script setup lang="ts">
+import MyAnswers from '@/components/MyAnswers.vue';
 import type { User } from '@/stores/users';
 import { useFetch } from '@vueuse/core';
 import { ref } from 'vue';

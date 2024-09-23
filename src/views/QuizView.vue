@@ -18,8 +18,10 @@
 
       <div class="d-flex justify-end">
         <v-btn :disabled="!answer" :loading="isFetching" style="max-width: 200px;" class="flex-grow-1" height="48"
-          text="SIGUIENTE" color="primary" @click="handleNext" />
-      </div>
+           color="primary" @click="handleNext" append-icon="mdi-chevron-right">
+           SIGUIENTE
+          </v-btn>
+          </div>
     </div>
   </div>
 </template>

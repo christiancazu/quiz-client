@@ -40,11 +40,11 @@ if (user.value) {
       <h1 class="text-center my-2">QUIZ</h1>
       <v-text-field style="width: 100%;" :rules="[(v) => v.length > 2 || 'Mínimo 3 caracters']" v-model="name"
         label="Ingrese su nombre"></v-text-field>
-      <div class="d-flex justify-space-between">
-        <v-btn style="max-width: 200px;" height="48" text="VER RESULTADOS" color="info"
+      <div class="d-flex" :class="user ? 'justify-end' : 'justify-space-between'">
+        <v-btn v-if="!user" style="max-width: 200px;" height="48" prepend-icon="mdi-chart-bar" text="VER RESULTADOS" color="info"
           @click="$router.push({ name: 'results' })" />
         <v-btn :disabled="name.length < 3 || name.length > 30" :loading="isFetching" style="max-width: 200px;"
-          height="48" text="SIGUIENTE" color="primary" @click="handleNext" />
+          height="48" text="SIGUIENTE" color="primary" @click="handleNext" append-icon="mdi-chevron-right" />
       </div>
     </div>
   </div>

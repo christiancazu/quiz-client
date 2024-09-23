@@ -4,7 +4,7 @@ import { ref } from 'vue'
 type Question = {
   id: number
   question: string
-  answers: string[]
+  answers: any
 }
 
 export const useQuestionsStore = defineStore('questions', {
