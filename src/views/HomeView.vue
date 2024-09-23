@@ -41,10 +41,10 @@ if (user.value) {
       <v-text-field style="width: 100%;" :rules="[(v) => v.length > 2 || 'Mínimo 3 caracters']" v-model="name"
         label="Ingrese su nombre"></v-text-field>
       <div class="d-flex justify-space-between">
-        <v-btn style="max-width: 200px;" class="flex-grow-1" height="48" text="VER RESULTADOS" color="info"
+        <v-btn style="max-width: 200px;" height="48" text="VER RESULTADOS" color="info"
           @click="$router.push({ name: 'results' })" />
         <v-btn :disabled="name.length < 3 || name.length > 30" :loading="isFetching" style="max-width: 200px;"
-          class="flex-grow-1" height="48" text="SIGUIENTE" color="primary" @click="handleNext" />
+          height="48" text="SIGUIENTE" color="primary" @click="handleNext" />
       </div>
     </div>
   </div>
