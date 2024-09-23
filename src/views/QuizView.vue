@@ -2,13 +2,13 @@
   <div class="quiz">
     <div v-if="currentQuestion">
       <div class="d-flex justify-center">
-        <IconCommunity v-if="route.query.q === '1'"/>
-        <IconDocumentation v-else-if="route.query.q === '2'"/>
-        <IconEcosystem v-else-if="route.query.q === '3'"/>
-        <IconSupport v-else-if="route.query.q === '4'"/>
+        <IconCommunity v-if="route.query.q === '1'" />
+        <IconDocumentation v-else-if="route.query.q === '2'" />
+        <IconEcosystem v-else-if="route.query.q === '3'" />
+        <IconSupport v-else-if="route.query.q === '4'" />
         <IconTooling v-else />
       </div>
-      <h1 class="mb-4">{{ currentQuestion.id }}. {{ currentQuestion.question }}</h1>
+      <h2 class="mb-4 pt-8">{{ currentQuestion.id }}. {{ currentQuestion.question }}</h2>
       <v-radio-group v-model="answer">
         <v-radio class="quiz-radio" v-for="(item, key) in currentQuestion.answers" :label="item" :key="key"
           :value="key"></v-radio>
@@ -46,7 +46,7 @@ const route = useRoute()
 const router = useRouter()
 const usersStore = useUsersStore()
 
-const { user } = storeToRefs(usersStore)
+const { user, answers } = storeToRefs(usersStore)
 
 const { q } = route.query
 
@@ -64,6 +64,13 @@ const currentQuestion = ref(questions.value.find((question) => question.id! === 
 
 function handleNext() {
 
+  const isAnswerDone = answers.value.find((answer) => answer.id === Number(route.query.q))
+
+  if (isAnswerDone) {
+    nextQuestion()
+    return
+  }
+
   post({ user_id: user.value!.id, question_id: currentQuestion.value!.id, answer: answer.value, delay: DELAY_VALUE - progressBar.value })
   execute().then(async (res) => {
     const response = await res.json()
@@ -74,6 +81,8 @@ function handleNext() {
     if (nextQueryQuestion === 6) {
       router.push({ name: 'results' })
     } else {
+      usersStore.setAnswer(+route.query.q!)
+
       router.replace({ name: 'quiz', query: { q: nextQueryQuestion } })
       answer.value = ''
       currentQuestion.value = questions.value.find((question) => question.id! === nextQueryQuestion)
@@ -85,6 +94,21 @@ function handleNext() {
       }, 1000);
     }
   })
+}
+
+function nextQuestion() {
+  const nextQueryQuestion = Number(route.query.q) + 1
+
+  router.replace({ name: 'quiz', query: { q: nextQueryQuestion } })
+  answer.value = ''
+  currentQuestion.value = questions.value.find((question) => question.id! === nextQueryQuestion)
+  progressBar.value = 0
+  clearInterval(interval)
+
+  setTimeout(() => {
+    delay()
+  }, 1000);
+
 }
 
 function delay() {
@@ -116,5 +140,9 @@ setTimeout(() => {
 
 .quiz-radio {
   margin-bottom: 16px;
+}
+
+.v-label {
+  font-size: 20px;
 }
 </style>

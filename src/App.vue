@@ -25,7 +25,11 @@ onFetchResponse(async (res) => {
   <main class="main">
     <v-container fluid class="app-container">
       <RouterView v-if="isLoaded" />
-      <h2 v-else>loading</h2>
+      <div v-else>
+        <h2>Cargando...</h2>
+        <span class="loader"></span>
+
+      </div>
     </v-container>
   </main>
 </template>
@@ -38,4 +42,46 @@ onFetchResponse(async (res) => {
   justify-content: center;
   align-items: center;
 }
+
+.main {
+  width: 100%;
+  min-height: 100vh;
+  z-index: -1;
+  background: linear-gradient(90deg, #3f51b5, #00bcd4);
+  animation: animate 20s linear infinite;
+}
+
+@keyframes animate {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+
+  50% {
+    filter: hue-rotate(360deg);
+  }
+
+  100% {
+    filter: hue-rotate(0deg);
+  }
+}
+
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #FFF;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+    } 
 </style>

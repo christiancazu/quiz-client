@@ -15,11 +15,22 @@ import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 
 const app = createApp(App)
+
+const myTheme = {
+  dark: true,
+  colors: {
+    primary: '#A020F0'
+  }
+}
+
 const vuetify = createVuetify({
   components,
   directives,
   theme: {
-    defaultTheme: 'dark',
+    defaultTheme: 'myTheme',
+    themes: {
+      myTheme
+    }
   }
 })
 

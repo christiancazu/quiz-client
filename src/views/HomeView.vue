@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useQuestionsStore } from '@/stores/questions';
 import { useUsersStore } from '@/stores/users';
 import { useFetch } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
@@ -38,7 +37,7 @@ if (user.value) {
       <v-text-field style="width: 100%;" :rules="[(v) => v.length > 2 || 'Mínimo 3 caracters']" v-model="name"
         label="Ingrese su nombre"></v-text-field>
       <div class="d-flex justify-end">
-        <v-btn :disabled="name.length < 3" :loading="isFetching" style="max-width: 200px;" class="flex-grow-1"
+        <v-btn :disabled="name.length < 3 || name.length > 30" :loading="isFetching" style="max-width: 200px;" class="flex-grow-1"
           height="48" text="SIGUIENTE" color="primary" @click="handleNext" />
       </div>
     </div>

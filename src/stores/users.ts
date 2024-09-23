@@ -1,17 +1,24 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
-type User = {
+export type User = {
   id: number
   name: string
   score?: number
 }
 
+export type Answer = {
+  id: number
+  done: boolean
+}
+
+
 export const useUsersStore = defineStore('users', {
 
   state: () => {
     return {
-      user: ref<User | null>(null)
+      user: ref<User | null>(null),
+      answers: ref<Answer[]>([])
     }
   },
   actions: {
@@ -20,7 +27,12 @@ export const useUsersStore = defineStore('users', {
         id: user.id,
         name: user.name
       }
+    },
+    setAnswer(id: number) {
+      this.answers.push({ id, done: true })
     }
   },
-  persist: true
+  persist: {
+    storage: sessionStorage,
+  }
 })

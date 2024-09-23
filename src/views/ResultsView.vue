@@ -14,18 +14,19 @@
 </template>
 
 <script setup lang="ts">
+import type { User } from '@/stores/users';
 import { useFetch } from '@vueuse/core';
 import { ref } from 'vue';
 
 const VITE_API_URL = import.meta.env.VITE_API_URL
 
-const items = ref([])
+const items = ref<User[]>([])
 
 const { execute, isFetching, onFetchResponse } = useFetch(`${VITE_API_URL}/results`, { immediate: false })
 
 onFetchResponse(async (res) => {
-  const data = await res.json()
-  items.value = data
+  const data: User[] = await res.json()
+  items.value = data.sort((a: User, b: User) => b.score! - a.score!)
 })
 
 execute()
