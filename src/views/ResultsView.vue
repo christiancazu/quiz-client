@@ -6,8 +6,12 @@
       { title: 'Usuario', key: 'name', sortable: false },
       { title: 'Puntuación', key: 'score', sortable: false },
     ]" :loading="isFetching" :items="items" item-key="id" items-per-page="20">
-      <template v-slot:[`item.rank`]="{ index }">
-        {{ index + 1 }}
+      <template v-slot:item="{ index, item }">
+        <tr class="text-subtitle-1" :class="{ 'bg-yellow': item.id === user?.id }">
+          <td class="text-center">{{ index + 1 }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.score }}</td>
+        </tr>
       </template>
     </v-data-table>
 
@@ -17,11 +21,17 @@
 
 <script setup lang="ts">
 import MyAnswers from '@/components/MyAnswers.vue';
-import type { User } from '@/stores/users';
+import { useUsersStore, type User } from '@/stores/users';
 import { useFetch } from '@vueuse/core';
+import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
 
 const VITE_API_URL = import.meta.env.VITE_API_URL
+
+const usersStore = useUsersStore()
+
+const { user } = storeToRefs(usersStore)
+
 
 const items = ref<User[]>([])
 
