@@ -25,9 +25,9 @@ onFetchResponse(async (res) => {
   <main class="main">
     <v-container fluid class="app-container">
       <RouterView v-if="isLoaded" />
-      <div v-else>
-        <h2>Cargando...</h2>
-        <span class="loader"></span>
+      <div v-else class="d-flex justify-center flex-column align-center">
+        <h2 class="mb-4">Cargando QUIZ...</h2>
+        <div class="loader"></div>
 
       </div>
     </v-container>
