@@ -34,6 +34,10 @@ if (user.value) {
 <template>
   <div class="home">
     <div class="home-container">
+      <div class="d-flex justify-center">
+        <img src="@/assets/cover.webp" alt="cover">
+      </div>
+      <h1 class="text-center my-2">QUIZ</h1>
       <v-text-field style="width: 100%;" :rules="[(v) => v.length > 2 || 'Mínimo 3 caracters']" v-model="name"
         label="Ingrese su nombre"></v-text-field>
       <div class="d-flex justify-space-between">
